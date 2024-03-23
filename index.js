@@ -4,6 +4,14 @@ import bodyParser from "body-parser";
 const app = express();
 const port = 3000;
 
+const db = new pg.client({
+  host: "localhost",
+  database: "permalist",
+  password: "shishir",
+  port: 5432,
+});
+db.connect();
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
@@ -12,7 +20,7 @@ let items = [
   { id: 2, title: "Finish homework" },
 ];
 
-app.get("/", (req, res) => {
+app.get("/", async (req, res) => {
   res.render("index.ejs", {
     listTitle: "Today",
     listItems: items,
