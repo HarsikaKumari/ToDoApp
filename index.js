@@ -1,10 +1,12 @@
 import express from "express";
 import bodyParser from "body-parser";
+import pg from "pg";
 
 const app = express();
 const port = 3000;
 
 const db = new pg.client({
+  user: "postgres",
   host: "localhost",
   database: "permalist",
   password: "shishir",
@@ -20,7 +22,7 @@ let items = [
   { id: 2, title: "Finish homework" },
 ];
 
-app.get("/", async (req, res) => {
+app.get("/", (req, res) => {
   res.render("index.ejs", {
     listTitle: "Today",
     listItems: items,
