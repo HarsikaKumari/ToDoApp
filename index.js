@@ -43,6 +43,11 @@ app.post("/add", async (req, res) => {
     await db.query("INSERT INTO items (title) VALUES ($1)", [item]);
     res.redirect("/");
   } catch (err) {
+    res.render("index.ejs", {
+      listTitle: "Today",
+      listItems: items,
+      error:"This task is already added!!"
+    })
     console.log(err);
   }
 });
